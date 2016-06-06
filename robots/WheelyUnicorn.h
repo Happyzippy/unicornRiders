@@ -1,5 +1,5 @@
 #ifndef WHEELYUNICORN_H
-#define
+#define WHEELYUNICORN_H
 
 #include "Dynamixel.h"
 #include "nvic.h"
@@ -8,11 +8,14 @@
 
 class WheelyUnicorn {
 private:
-	Dynamixel dxl_
-	int leftID_, rightID_, frontID_;
+	Dynamixel* dxl_;
+	int leftID_; 
+	int rightID_;
+	int frontID_;
 
 public:
-	WheelyUnicorn();
+	WheelyUnicorn(int dxlBusSerial, int leftID, int righID, int frontID);
+	void begin();
 	
 };
 
