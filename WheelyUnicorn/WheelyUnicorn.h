@@ -36,6 +36,7 @@
 #include "dxl.h"
 #include <OLLO.h>
 #include <math.h>
+#include "usb_serial.h"
 
 class WheelyUnicorn {
 private:
