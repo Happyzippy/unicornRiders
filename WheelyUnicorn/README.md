@@ -5,8 +5,6 @@ git remote add -f origin https://github.com/Happyzippy/unicornRiders.git/
 
 git config core.sparseCheckout true
 
-echo robots/<Library> > .git/info/sparse-checkout
+echo WheelyUnicorn > .git/info/sparse-checkout
 
 git pull origin master
-
-mv robots/WheelyUnicorn/ WheelyUnicorn/
