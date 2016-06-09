@@ -13,9 +13,16 @@ class WalkerLeg
 public:
 	WalkerLeg();
 	void init(Dynamixel dxl, int hipMotorId, int kneeMotorId);
-	void setGoalPosition();
-	void getLegPosition();
+	void setServoConf(float hipBias, float kneeBias, bool isReversed);
+	void setGoalPosition(float hipAngle, float kneeAngle);
+	float getHipPosition();
+	float getKneePosition();
 private:
+	int hipMotorId_;
+	int kneeMotorId_;
+	float hipBias_;
+	float kneeBias_;
+	bool isReversed_;
 	Dynamixel* dxl_;
 };
 

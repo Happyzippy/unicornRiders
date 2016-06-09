@@ -7,14 +7,19 @@
 
 #include "Dynamixel.h"
 #include "walker_leg.h"
+#include <stdint.h>
 
 class Walker
 {
 public:
 	Walker();
 	void init(Dynamixel dxl);
-	void update();
+	void update(uint32_t dt);
+
 private:
+
+	uint32_t clock_;
+
 	WalkerLeg legFL;
 	WalkerLeg legFR;
 	WalkerLeg legRL;

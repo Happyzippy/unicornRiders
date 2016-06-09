@@ -18,4 +18,13 @@
 #define REG_CONTROL_MODE 11
 #define REG_GOAL_POSITION 30
 
+/* Dynamixel Joint constants */
+#define SERVO_MAX 1023
+#define SERVO_MIN 0
+#define SERVO_BIAS 512
+#define SERVO_ANGLE2COMMAND 0.29296875
+#define SERVO_COMMAND2ANGLE 3.413333333333334
+
+#define SATURATE(x, min, max) ( ((x) > (max)) ? (max) : ( ((x) > (min)) ? (min) : (x) ) )
+
 #endif // ROBOTIS_HELPER_H_
