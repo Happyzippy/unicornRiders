@@ -1,9 +1,12 @@
+/***
+	Walker class
+	Containing the robot as an entity
+***/
 #ifndef WALKER_H_
 #define WALKER_H_
 
 #include "Dynamixel.h"
 #include "walker_leg.h"
-//#include <../RobotisHelper/robotis_helper.h>
 
 class Walker
 {

@@ -1,8 +1,12 @@
+/***
+	Walker Leg class
+	Abstracting the use of motors on each leg
+***/
 #ifndef WALKER_LEG_H_
 #define WALKER_LEG_H_
 
 #include "Dynamixel.h"
-//#include <../RobotisHelper/robotis_helper.h>
+
 
 class WalkerLeg
 {
