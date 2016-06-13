@@ -7,23 +7,23 @@
 
 #include "Dynamixel.h"
 #include "walker_leg.h"
-#include <stdint.h>
 
 class Walker
 {
 public:
 	Walker();
 	void init(Dynamixel dxl);
-	void update(uint32_t dt);
-
+	void update(int dt);
 private:
 
-	uint32_t clock_;
+	int clock_;
 
 	WalkerLeg legFL;
 	WalkerLeg legFR;
 	WalkerLeg legRL;
 	WalkerLeg legRR;
+	//WalkerLeg* legs[4] = {legFR, legFL, legRR, legRL};
+	void setDiagonal(bool isFR, int hipCommand, int kneeCommand);
 };
 
 #endif // WALKER_H_

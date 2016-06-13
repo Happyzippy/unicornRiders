@@ -22,9 +22,7 @@
 #define SERVO_MAX 1023
 #define SERVO_MIN 0
 #define SERVO_BIAS 512
-#define SERVO_ANGLE2COMMAND 0.29296875
-#define SERVO_COMMAND2ANGLE 3.413333333333334
-
-#define SATURATE(x, min, max) ( ((x) > (max)) ? (max) : ( ((x) > (min)) ? (min) : (x) ) )
+#define SERVO_COMMAND2ANGLE 0.29296875 			// 300/1024
+#define SERVO_ANGLE2COMMAND 3.413333333333334	// 1024/300
 
 #endif // ROBOTIS_HELPER_H_

@@ -3,79 +3,100 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="css/hover.css" rel="stylesheet" media="all">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	<title>Unicorn Riders | s114898</title>
 </head>
 
 <body>
-<h1>Autonomous Driving Robot</h1>
-Responsible: Morten Hillingsøe (s114898)<br>
-Group: Unicorn Riders<br>
-Course: 31384 Modular Robotics in June 2016
 
-<!-- Adding a video
-<br><br>
-<iframe width=640 height=360
- src="path"
- frameborder=0 allowfullscreen>
-</iframe>
-<br>
--->
+<div class="header">
+		<div class="container">
+				<a href="index.html" id="logo">Unicorn Riders</a>
+			<ul>
+				<li><a href="s110498.html" class="navbutton">Task 1</a></li>
+				<li><a href="s123354.html" class="navbutton">Task 2</a></li>
+				<li><a href="s134106.html" class="navbutton">Task 3</a></li>
+				<li><a href="s123259.html" class="navbutton">Task 4</a></li>
+				<li><a href="s123056.html" class="navbutton">Task 5</a></li>
+				<li><a href="s160769.html" class="navbutton">Task 6</a></li>
+			</ul>
+		</div>	
+</div>	
+
+<div class="main">
+<h1>Autonomous Driving Robot</h1>
+
+<h6>Responsible: Morten Hillingsøe (s114898)</h6>
 
 <h2>Abstract</h2>
-A wheeled autonomous robot was built for the first task, with inspiration from kiddie tricycles. </br>
-Embodied artificial intelligence was successfully implemented to allow for autonomous movement through the obstacle track.</br>
+<p>A wheeled autonomous robot was built for the first task, with inspiration from kiddie tricycles. </br>
+Embodied artificial intelligence was successfully implemented to allow for autonomous movement through the obstacle track.</br></p>
 
 
 <h2>Hardware Design</h2>
-The robot uses 2 servo motors in wheel mode for the backwheels, and an extra servo motor in position mode for frontwheel steering.</br>
+<p>The robot uses 2 servo motors in wheel mode for the backwheels, and an extra servo motor in position mode for frontwheel steering.</br>
 The robot uses 3 Robotis DMS-80 sensors placed respectively at 0, 45 and -45 degrees from the front.</br>
-A long axle rod was used to attach the frontwheel in the middle of the fork. The design also allow for easy battery and controller placement.</br>
+A long axle rod was used to attach the frontwheel in the middle of the fork. The design also allow for easy battery and controller placement.</br></p>
+	
 
-
-
-<div>
-	<div>
-		<img src="pics/back.jpg" height='300px' style="margin-bottom:0;"/>
-	</div>
-	<div>
-		<img src="pics/front.jpg" height='300px' style="margin-bottom:0;"/>
-	</div>
-	<div>
-		<img src="pics/side1.jpg" height='300px' style="margin-bottom:0;"/>
-	</div>
-	<div>
-		<img src="pics/side2.jpg" height='300px' style="margin-bottom:0;"/>
-	</div>
-	<div>
-		<img src="pics/top.jpg" height='300px' style="margin-bottom:0;"/>
-	</div>
-<div>
-	<b>Figure 1: </b>Pictures of the Robot
+<div class="container">
+	<div class="extra">
+		<div class="row">
+  			<div class="col-sm-2"><img src="pics/back.jpg" width='200px' style="margin-bottom:0;"/></div>
+  			<div class="col-sm-2"><img src="pics/front.jpg" width='200px' style="margin-bottom:0;"/></div>
+  			<div class="col-sm-2"><img src="pics/side1.jpg" width='200px' style="margin-bottom:0;"/></div>
+			<div class="col-sm-2"><img src="pics/side2.jpg" width='200px' style="margin-bottom:0;"/></div>
+			<div class="col-sm-2"><img src="pics/top.jpg" width='200px' style="margin-bottom:0;"/></div>
+			<div class="col-sm-1"></div>
+		</div>
+	</div>	
+</div>	
 
 
 <h2>Implementation</h2>
-The control algorithm measures the difference between the inputs of the +45 and -45 degree DMS sensors, and then calculates a direction based on the difference. If something is detected to be closer to the right sensor, the robot direction will change to move the robot further to the left, and vice versa. Extra logic is implemented to make the robot move slower based on the free distance in front of the robot, so the robot will move slower if it detects something is close in front. Logic was also implemented to make the robot back up if it gets too close to an obstacle in front of it. Finally, extra direction limits were implemented when objects were detected on the sides of the robot, making the robot avoid these obstacles.
+<p>The control algorithm measures the difference between the inputs of the +45 and -45 degree DMS sensors, and then calculates a direction based on the difference. If something is detected to be closer to the right sensor, the robot direction will change to move the robot further to the left, and vice versa. Extra logic is implemented to make the robot move slower based on the free distance in front of the robot, so the robot will move slower if it detects something is close in front. Logic was also implemented to make the robot back up if it gets too close to an obstacle in front of it. Finally, extra direction limits were implemented when objects were detected on the sides of the robot, making the robot avoid these obstacles.</p>
 
 <h2>Test and Performance</h2>
-The direction value calculations of the robot is dependant on a scaling factor, which in turn affects the autonomous performance of the robot. If this scaling factor is too low, the robot wont turn in time to avoid an obstacle. On the other hand, if it's too high, the robot will turn too much and miss its target, e.g. by starting to go around in circles.
+<p>The direction value calculations of the robot is dependant on a scaling factor, which in turn affects the autonomous performance of the robot. If this scaling factor is too low, the robot wont turn in time to avoid an obstacle. On the other hand, if it's too high, the robot will turn too much and miss its target, e.g. by starting to go around in circles.
 
-A well performing scaling factor value of 40000 was found by trial and error, followed by performance testing of nearby values. Figure XX presents the result of these experiments. Performance testing was completed for 5 different values of respectively 20000, 35000, 40000, 45000 and 80000. Each value was tested by running the robot through the obstacle course 5 times. If the robot managed to get through the course in less than 20 seconds, the time was recorded and used for averaging. At each run, the robot was started from the same position, and under similar light conditions. Different lighting conditions were also tested, and showed a difference in robot behaviour.
+A well performing scaling factor value of 40000 was found by trial and error, followed by performance testing of nearby values. Figure XX presents the result of these experiments. Performance testing was completed for 5 different values of respectively 20000, 35000, 40000, 45000 and 80000. Each value was tested by running the robot through the obstacle course 5 times. If the robot managed to get through the course in less than 20 seconds, the time was recorded and used for averaging. At each run, the robot was started from the same position, and under similar light conditions. Different lighting conditions were also tested, and showed a difference in robot behaviour.</p>
 
-<div>
-	<img src="pics/task1_performance_table.png" height='300px' style="margin-bottom:0;"/>
+<div class="results">
+<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-4"><img src="pics/task1_performance_table.png" height='300px' style="margin-bottom:0;"/></div>
+		<div class="col-sm-4"><img src="pics/task1_performance_graph.png" height='300px' style="margin-bottom:0;"/></div>
+		<div class="col-sm-2"></div>
 </div>
-<b>Table 1: </b>Performance testing results when changing the direction scaling factor.
-<div>
-	<img src="pics/task1_performance_graph.png" height='300px' style="margin-bottom:0;"/>
-</div>
-<b>Figure 2: </b>Graph presenting data from table 1.
 
-The result show that a scaling factor of 45000 provides the fastest lap times, but also decrease the success rate (3 of 5 attempts). On the other hand, decreasing the scaling factor to 35000 leads to a slower lap time, but greatly increases the succes rate (5 of 5 attempts). Of course 5 measurements per setting wont provide a precise characterisation of performance between scaling factors of 35000, 40000 and 45000, but it was clear that halving or doubling the scaling factor (20000 or 80000) was not a good solution.
+<div class="row">
+	<div class="col-sm-2"></div>
+		<div class="col-sm-4"><b>Table 1: </b>Performance testing results when changing the direction scaling factor.</div>
+		<div class="col-sm-4"><b>Figure 2: </b>Graph presenting data from table 1.</div>
+		<div class="col-sm-2"></div>
+</div>
+</div>
+
+<p>The result show that a scaling factor of 45000 provides the fastest lap times, but also decrease the success rate (3 of 5 attempts). On the other hand, decreasing the scaling factor to 35000 leads to a slower lap time, but greatly increases the succes rate (5 of 5 attempts). Of course 5 measurements per setting wont provide a precise characterisation of performance between scaling factors of 35000, 40000 and 45000, but it was clear that halving or doubling the scaling factor (20000 or 80000) was not a good solution.</p>
+
+<h2>Race</h2>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/PMyACgLv__Y" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/DGVGZXyG_fQ" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/jCqQKweafO0" frameborder="0" allowfullscreen></iframe>
 
 <h2>Conclusion</h2>
-A small, fast and efficient wheeled autonomous robot was designed, built, and tested. More time could be used to find an optimal movement algorithm, but the very simple algorithm of moving away from objects (changing direction away from side sensor detections) along backing up when getting too close, proved very successfull in the simple obstacle course.
+<p>A small, fast and efficient wheeled autonomous robot was designed, built, and tested. More time could be used to find an optimal movement algorithm, but the very simple algorithm of moving away from objects (changing direction away from side sensor detections) along backing up when getting too close, proved very successfull in the simple obstacle course.</p>
 
-<h2>Reference</h2>
-
+</div>
 </body>
 
 </html>
