@@ -25,9 +25,9 @@ Repository for 31384 Modular robotics, team Unicorn Riders
 
 ## Links
 [Robotis support site](http://support.robotis.com/en/)   
-[Blog post](http://wiki.lofarolabs.com/index.php/OpenCM_9.04)
-[RC Pinky](https://www.youtube.com/watch?v=S9j-WS7vqMo&list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx&index=5)
-[Autonomous Pinky](https://www.youtube.com/watch?v=LnNlSqjbBRQ&list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx&index=6)
+[Blog post](http://wiki.lofarolabs.com/index.php/OpenCM_9.04)  
+[RC Pinky](https://www.youtube.com/watch?v=S9j-WS7vqMo&list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx&index=5)  
+[Autonomous Pinky](https://www.youtube.com/watch?v=LnNlSqjbBRQ&list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx&index=6)  
 
 
 ## Todo List
