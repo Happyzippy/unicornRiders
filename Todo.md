@@ -5,19 +5,19 @@
 	- [x] Hardware
 	- [x] Code
 	- [x] Competition
-	- [ ] Webpage
-	- [ ] Take apart 
+	- [x] Webpage
+	- [x] Take apart 
 2. RC Non-Wheeled Robot Race
-	- [ ] Design
-	- [ ] Build
-	- [ ] Code Structure
-	- [ ] Gait generation
-	- [ ] Remote control
+	- [x] Design
+	- [x] Build
+	- [x] Code Structure
+	- [x] Gait generation
+	- [x] Remote control
 	- [ ] Competition
 	- [ ] Webpage
 3. Autonomous Non-Wheeled Robot Race
-	- [ ] Hardware
-	- [ ] Code
+	- [x] Hardware
+	- [x] Code
 	- [ ] Competition
 	- [ ] Webpage
 4. Robotic Toy
@@ -26,9 +26,9 @@
 	- [ ] Competition
 	- [ ] Webpage
 5. Soccer robot simulation framework
-	- [ ] Code
+	- [x] Code
 	- [ ] Competition
-	- [ ] Webpage
+	- [x] Webpage
 6. Soccer playing robot
 	- [ ] Code
 	- [ ] Competition

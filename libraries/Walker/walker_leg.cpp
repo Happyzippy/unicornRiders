@@ -13,13 +13,13 @@ WalkerLeg::WalkerLeg(){
  * @param[in]  hipMotorId   The hip motor identifier
  * @param[in]  kneeMotorId  The knee motor identifier
  */
-void WalkerLeg::init(Dynamixel dxl, int hipMotorId, int kneeMotorId){
+void WalkerLeg::init(Dynamixel* dxl, int hipMotorId, int kneeMotorId){
 	// set internal variables
-	dxl_ = &dxl;
+	dxl_ = dxl;
 	hipMotorId_ = hipMotorId;
 	kneeMotorId_= kneeMotorId;
-	hipBias_ = 0;
-	kneeBias_ = 0;
+	hipBias_ = SERVO_BIAS;
+	kneeBias_ = SERVO_BIAS;
 	isHipReversed_ = false;
 	isKneeReversed_ = false;
 	servo_max_ = SERVO_MAX;
@@ -73,15 +73,19 @@ void WalkerLeg::setServoConf(float hipBias, float kneeBias, float angleMax, floa
 void WalkerLeg::setGoalPosition(float hipAngle, float kneeAngle){
 	setGoalPositionCommand(hipAngle*SERVO_ANGLE2COMMAND, kneeAngle*SERVO_ANGLE2COMMAND);
 	
+	
 	/*
 	// angle 2 servo command
 	hipAngle = isHipReversed_ ? -hipAngle : hipAngle;
-	int hipCommand = (hipAngle + hipBias_) * SERVO_ANGLE2COMMAND + SERVO_BIAS;
+	int hipCommand = hipAngle * SERVO_ANGLE2COMMAND + hipBias_;
 	hipCommand = hipCommand > servo_max_ ? servo_max_ : (hipCommand < servo_min_ ? servo_min_ : hipCommand);
 
 	kneeAngle = isKneeReversed_ ? -kneeAngle : kneeAngle;
-	int kneeCommand = (kneeAngle + kneeBias_) * SERVO_ANGLE2COMMAND + SERVO_BIAS;
+	int kneeCommand = kneeAngle * SERVO_ANGLE2COMMAND + hipBias_;
 	kneeCommand = kneeCommand > servo_max_ ? servo_max_ : (kneeCommand < servo_min_ ? servo_min_ : kneeCommand);
+	
+	//hipCommand = 512;
+	//kneeCommand = 512;
 	
 	// write to motors
 	dxl_->writeWord(hipMotorId_,  REG_GOAL_POSITION, hipCommand);
@@ -105,8 +109,15 @@ void WalkerLeg::setGoalPositionCommand(int hipCommand, int kneeCommand){
 	kneeCommand = kneeCommand > servo_max_ ? servo_max_ : (kneeCommand < servo_min_ ? servo_min_ : kneeCommand);
 	
 	// write to motors
+	
 	dxl_->writeWord(hipMotorId_,  REG_GOAL_POSITION, hipCommand);
+	if(!dxl_->getResult()){
+		// Comm error
+	}
 	dxl_->writeWord(kneeMotorId_, REG_GOAL_POSITION, kneeCommand);
+	if(!dxl_->getResult()){
+		// Comm error
+	}
 }
 
 

@@ -49,7 +49,7 @@ q_ik = ik(T02(q))
 angle2command = 1024/300
 command2angle = 1/angle2command
 
-softMultiplier = 5
+softMultiplier = 3
 
 % kernel
 filt = hann((softMultiplier*2 + 1));
@@ -115,21 +115,20 @@ fid=fopen('walker_conf.cpp','wt');
 fprintf(fid, '/***\n\tWalker Robot configuration file\n\n\tDO NOT EDIT, THIS FILE IS CODE GENERATED\n***/\n\n');
 fprintf(fid, '#include "walker_conf.h"\n');
 fprintf(fid, '#include <stdint.h>\n\n');
-fprintf(fid, ['#define WALKCYCLE_LUT_TABLE_SIZE ' num2str(numel(q1)) '\n']);
-fprintf(fid, ['#define WALKCYCLE_LUT_TABLE_MOD WALKCYCLE_LUT_TABLE_SIZE+1\n\n']);
+fprintf(fid, ['#define WALKCYCLE_LUT_TABLE_SIZE ' num2str(numel(q1)) '\n\n']);
 
 fprintf(fid, ['int hipCycle(int index, float phase)\n{\n\t']);
 str = sprintf('%i,',round(q1*angle2command)');
 str = str(1:end-1);
-fprintf(fid, ['static const int8_t lookup[WALKCYCLE_LUT_TABLE_SIZE] = {' str '};\n']);
-fprintf(fid, ['\tindex = (index + ((int)(phase*WALKCYCLE_LUT_TABLE_SIZE))) %% WALKCYCLE_LUT_TABLE_MOD;\n\treturn lookup[index];\n}\n\n']);
+fprintf(fid, ['static const int16_t lookup[WALKCYCLE_LUT_TABLE_SIZE] = {' str '};\n']);
+fprintf(fid, ['\tindex = (index + ((int)(phase*WALKCYCLE_LUT_TABLE_SIZE))) %% WALKCYCLE_LUT_TABLE_SIZE;\n\treturn lookup[index];\n}\n\n']);
 
 
 fprintf(fid, ['int kneeCycle(int index, float phase)\n{\n\t']);
 str = sprintf('%i,',round(q2*angle2command)');
 str = str(1:end-1);
-fprintf(fid, ['static const int8_t lookup[WALKCYCLE_LUT_TABLE_SIZE] = {' str '};\n']);
-fprintf(fid, ['\tindex = (index + ((int)(phase*WALKCYCLE_LUT_TABLE_SIZE))) %% WALKCYCLE_LUT_TABLE_MOD;\n\treturn lookup[index];\n}\n\n']);
+fprintf(fid, ['static const int16_t lookup[WALKCYCLE_LUT_TABLE_SIZE] = {' str '};\n']);
+fprintf(fid, ['\tindex = (index + ((int)(phase*WALKCYCLE_LUT_TABLE_SIZE))) %% WALKCYCLE_LUT_TABLE_SIZE;\n\treturn lookup[index];\n}\n\n']);
 
 fclose(fid);
 

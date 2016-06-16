@@ -44,10 +44,26 @@ int oldDir = 0;
 int reverse = 0;
 int running = 0;
 
+
+/**
+ * @brief      Converts sensor value to mm
+ *
+ * @param[in]  sensor  The sensor value
+ *
+ * @return     The converted value
+ */
 int sensor2mm(int sensor){
   return 30000/sensor;
 }
 
+
+/**
+ * @brief      Reads data from the sensor and average it.
+ *
+ * @param[in]  id    The id of the sensor.
+ *
+ * @return     The sensor data.
+ */
 int getSensorData(int id) {
   int avg = 0;
   for(int i = 0; i < 2; i++) {
@@ -60,6 +76,12 @@ int getSensorData(int id) {
 //  return angle*1024/300 + 512;
 //}
 
+
+/**
+ * @brief      Makes the robot move in the direction where the largest distance is measured.
+ *
+ * @param[in]  Velocity  of the robot (0-1024)
+ */
 void followTheLight(int velocity) {
   // get sensor data
   int dirMax = 120;
@@ -104,6 +126,15 @@ void followTheLight(int velocity) {
   commandMotors(velocity, dir, reverse);
 }
 
+
+/**
+ * @brief      Sets speed of the rear motors according to the specified velocity and direction.
+ * 
+ *
+ * @param[in]  velocity   The velocity of the robot
+ * @param[in]  direction  The direction of the robot
+ * @param[in]  reverse    Boolean telling wheter the robot should move forward or reverse.
+ */
 void commandMotors(int velocity, int direction, int reverse){
   if(reverse){
     direction *= -1; 
@@ -139,6 +170,15 @@ void commandMotors(int velocity, int direction, int reverse){
   }
 }
 
+
+/**
+ * @brief      Calculates the angle of the front wheel when given a direciton and radius.
+ *
+ * @param[in]  direction  The direction
+ * @param[in]  radius     The radius
+ *
+ * @return     The firmware angle.
+ */
 int calc_fw_angle(boolean direction, int radius){
   SerialUSB.print("calc_fw_angle(d, r): ");
    
@@ -151,6 +191,16 @@ int calc_fw_angle(boolean direction, int radius){
     return  90 + asin((float)FRONT_WHEEL_DIST/fw_r)*180/M_PI;
 }
 
+
+/**
+ * @brief      Calculates the speed of the rear wheels when given the direction, radius and velocity for the movement.
+ *
+ * @param[in]  direction  The direction
+ * @param[in]  radius     The radius
+ * @param[in]  velocity   The velocity
+ *
+ * @return     The lw speed.
+ */
 int calc_lw_speed(boolean direction, int radius, int velocity){
   SerialUSB.print("calc_lw_speed(d, r, v): ");
   int lw_r;
@@ -219,12 +269,18 @@ void turn(boolean direction, int angle, int radius, int velocity){
   }
 }
 
-void followWall(int distance, int velocity){
-}
 
+/**
+ * @brief      Calculates the motor speed from a linear speed.
+ *
+ * @param[in]  velocity  The velocity
+ *
+ * @return     motor speed
+ */
 int speed2motor(int velocity){
  return (float)velocity*60/(2*M_PI*RADIUS_WHEEL)/0.111; 
 }
+
 
 void setup() {
   // Dynamixel 2.0 Protocol -> 0: 9600, 1: 57600, 2: 115200, 3: 1Mbps 
