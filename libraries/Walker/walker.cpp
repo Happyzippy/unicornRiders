@@ -25,6 +25,8 @@ void Walker::init(Dynamixel* dxl, HardwareSerial* serial, OLLO* ollo){
 	legFR.init(dxl, FR_HIP_MOTORID, FR_KNEE_MOTORID);
 	legRL.init(dxl, RL_HIP_MOTORID, RL_KNEE_MOTORID);
 	legRR.init(dxl, RR_HIP_MOTORID, RR_KNEE_MOTORID);
+	legRR.init(dxl, RR_HIP_MOTORID, RR_KNEE_MOTORID);
+	arm.init(dxl, ARM_HIP_MOTORID, ARM_KNEE_MOTORID);
 
 	legFL.setIsReversed(true, false);
 	legFR.setIsReversed(false, true);
@@ -77,7 +79,7 @@ void Walker::serialInterrupt(char buffer){
 		}
 		dirTarget_ = 0;
 		speedTarget_ = 0;
-		freezeDir_ = 150;
+		freezeDir_ = 100;
 
 	case 't':
 		//serial_->print(dirTarget_);
@@ -123,28 +125,14 @@ void Walker::update(int dt){
 
 	if(isAutonomous){
 		followTheLight();
+		//nnCommander();
 	}
 
 	speed_ = (speed_*9 + speedTarget_)/10;
 	dir_   = (dir_*9   + dirTarget_)/10;
+	armRot_   = (armRot_*19   + armRotTarget_)/20;
 
 	walkTrot(speed_, dir_);
-
-	/*
-  	// Print on serial 
-	serial_->print(dir);
-	serial_->print(",");
-	serial_->print(irRight.last());
-	serial_->print(",");
-	serial_->println(irLeft.last());
-	*/
-	/*
-	serial_->print(",");
-	serial_->print(hipMultR);
-	serial_->print(",");
-	serial_->print(hipMultL);
-	serial_->println("");
-	*/	
 }
 
 /**
@@ -182,11 +170,12 @@ void Walker::walkTrot(float speed, float direction){
 	int knee5 = kneeCycle(clock_, 0.5);
 
 	// Command lsegs
-	legFR.setGoalPositionCommand(hip0*hipMultR, knee0*kneeMultR);
- 	legRL.setGoalPositionCommand(hip0*hipMultL, knee0*kneeMultL);
+	int trans = 5*SERVO_ANGLE2COMMAND;
+	legFR.setGoalPositionCommand(hip0*hipMultR+ trans, knee0*kneeMultR);
+ 	legRL.setGoalPositionCommand(hip0*hipMultL- trans, knee0*kneeMultL);
 	
-	legFL.setGoalPositionCommand(hip5*hipMultL, knee5*kneeMultL);
-  	legRR.setGoalPositionCommand(hip5*hipMultR, knee5*kneeMultR);
+	legFL.setGoalPositionCommand(hip5*hipMultL- trans, knee5*kneeMultL);
+  	legRR.setGoalPositionCommand(hip5*hipMultR+ trans, knee5*kneeMultR);
 }
 
 /**
@@ -221,6 +210,21 @@ void Walker::followTheLight() {
 		speedTarget_ = 1;
 	}
 	dirTarget_ = 3*(irLeft.last() - irRight.last()) / (irRight.last() + irLeft.last());
+}
+
+void Walker::nnCommander() {
+	if (freezeDir_ >= 0){
+		dirTarget_ = 0;
+		freezeDir_--;
+	}
+
+	if(irFront.last() < 0.3){
+		speedTarget_ = 0;
+	}else{
+		speedTarget_ = 1;
+	}
+	int buf = leftNN((int)(irLeft.last()*100)) + frontNN((int)(irLeft.last()*100)) + rightNN((int)(irLeft.last()*100));
+	dirTarget_ = 0.001*buf;
 }
 
 

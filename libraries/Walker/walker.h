@@ -29,6 +29,8 @@ private:
 	WalkerLeg legRL;
 	WalkerLeg legRR;
 
+	WalkerLeg arm;
+
 	WalkerSensor irFront;
 	WalkerSensor irRight;
 	WalkerSensor irLeft;
@@ -37,11 +39,17 @@ private:
 	float dir_;
 	float speedTarget_;
 	float dirTarget_;
+	
+	float armRot_;
+	float armRotTarget_;
+	float armThrow_
+	float armThrowTarget_;
 
 	bool isAutonomous;
 	int freezeDir_;
 
 	void followTheLight();
+	void nnCommander();
 	void walkTrot(float speed, float direction);
 	void walkRotate(float speed, bool isClockwise);
 

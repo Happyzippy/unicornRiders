@@ -33,12 +33,45 @@
 	<div class="container">
 		<h1>Autonomous Walking Robot</h1>
 	</div>
+
+	<h6>Responsible: Christopher Prinds Bilberg (s134106)</h6>
+
 	<h2>Abstract</h2>
-	After having implemented the h
+	<p>After having implemented the required hardware and controllers for the robot in order to make it able to walk through the track, the next task is to make it do it autonoumsly. Multiple IR sensors are used as feedback to the robot to make it complete the racing track as fast as possible. The robot was relatively roboust when completing the track on its own however when interacting with other robots it had a hard time avoiding its opponent and often got flip upside down making it completely paralyzed.</p>
 
 	<center>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/LnNlSqjbBRQ?list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx" frameborder="0" allowfullscreen></iframe>
-	</center>	
+	</center>
+
+	<h2>Hardware Design</h2>
+	<p>The autonomous control is implemented on the same robot as used for the remote controlled task, as described in task 2. The only difference is that 3 IR sensors have been added to the front of the robot; one sensor pointing straight, one at a -45 degrees angle and one at a +45 degrees angle.</p>
+
+	<h2>Implementation</h2>
+	<p>The robot software has been implemented as 3 classes as shown in figure 2. The main class walker is responsible for the overall control of the robot. The two most essential functions are walkTrot() and walkRotate() that can be used for making the robot move forward/backward and rotate respectively.</p>
+
+	<p> 
+	The walker has four legs which have been implemented as seperate instances of the walker_leg class. In this way the methods for setting the position of each leg can be reused and controlled directly from the walker class. When the robot is moving, the Walker class iterates through the walking patterns and sends the corresponding commands to each leg in order to make the robot carry out the desired movement.
+	</p>
+
+	<p>
+	The final class is the WalkerSensor which is used for communicating with the IR sensors. Since the robot has 3 IR sensor, it has an 3 instances of the WalkerSensor class. The readSensor() method returns the average of the last 5 sensor readings whereas the readSensorRaw() will return the exact value.
+	</p>
+
+	<p>
+	The autonomous control is done in the Walker class by calling the followTheLight() method, which works in the same way as the implementation for the autonomous driving robot in task 1. It subtracts the right IR sensor reading from the left and convert this into a direction signal for the robot. In this way the robot will always try to move in the direction where there is the most space. In order to avoid collision the front sensor is used as a proportional gain making the robot slow down when it gets close to a wall.
+	</p>
+
+	<div class="row">
+		<div class="col-sm-6"><img src="pics/WalkerClassDiagram.svg" width='930px' style="margin-bottom:0;"/><b>Figure 1: </b>UML class diagram for walking robot</div>
+	</div>
+
+	<h2>Test and Performance</h2>
+	To test have well the autonomous implementation was working, the completion time was compared to the remote controlled robot in task 2. 
+
+	<h2>Race</h2>
+	Even though the robot was finishing the track relatively well, when it was going alone different problems occured when competing against other robots. 
+
+	<h2>Conclusion</h2>
 </div>
 
 

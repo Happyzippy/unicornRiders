@@ -17,7 +17,7 @@ void setup() {
 
 void loop(){
 
-	delay(10);
+	delay(7);
 	walker.update(1);
 }
 
