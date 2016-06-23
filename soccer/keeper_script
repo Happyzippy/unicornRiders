@@ -1,0 +1,135 @@
+-- Keeper Script 
+-- another script (non-threaded) that is in charge of generating the walking movement.
+-- The other script is controlled via simulation parameters: this script writes the parameters (simSetScriptSimulationParameter)
+-- and the other script reads the parameters (simGetScriptSimulationParameter).
+
+-- Defining some shiz
+antBase = simGetObjectHandle('Ant_base#1')
+legBase = simGetObjectHandle('Ant_legBase#1')
+prox = simGetObjectHandle('Proximity_sensor#0')
+goalie = simGetObjectHandle('Ant_base#1')
+camSide = simGetObjectHandle("Vision_sensor0#0")
+camBack = simGetObjectHandle("Vision_sensor1#0")
+camFront = simGetObjectHandle("Vision_sensor2#0")
+sizeFactor = simGetObjectSizeFactor(antBase)
+vel = 0.05
+accel = 0.05
+initialP = {0,0,0}
+initialO = {0,0,0}
+initialP[3] = initialP[3]-0.03*sizeFactor
+simMoveToPosition(legBase,antBase,initialP,initialO,vel,accel)
+
+stepHeight = 0.04*sizeFactor
+maxWalkingStepSize = 0.08*sizeFactor
+walkingVel = 5
+
+--if simGetScriptExecutionCount() == 0 then
+--          console = simAuxiliaryConsoleOpen("Aux Console", 500, 0x10)
+--          oldprint = print
+--
+--          print = function(toPrint)
+--          simAuxiliaryConsolePrint(console, toPrint .. "\n")
+--          end
+--end
+
+setStepMode=function(stepVelocity,stepAmplitude,stepHeight,movementDirection,rotationMode,movementStrength)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepVelocity',stepVelocity)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepAmplitude',stepAmplitude)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepHeight',stepHeight)
+    simSetScriptSimulationParameter(sim_handle_tree,'movementDirection',movementDirection)
+    simSetScriptSimulationParameter(sim_handle_tree,'rotationMode',rotationMode)
+    simSetScriptSimulationParameter(sim_handle_tree,'movementStrength',movementStrength)
+end
+
+
+stopTheGoals = function()
+    --variables
+    xBall = 0
+    yBall = 0
+    lastX = 0
+    xBound = .85
+
+    -- Read sensor input and find x coordinates of ball
+    result,pack,pack2=simReadVisionSensor(camSide)
+    if (pack2) then
+        xBall = pack2[2]
+        yBall = pack2[3]
+    end
+
+    resultFront,packFront,pack2Front=simReadVisionSensor(camFront)
+    if (pack2Front) then
+        xBallFront = pack2Front[2]
+        yBallFront = pack2Front[3]
+    end
+
+    resultBack,packBack,pack2Back=simReadVisionSensor(camBack)
+    if (pack2Back) then
+        xBallBack = pack2Back[2]
+        yBallBack = pack2Back[3]
+    end
+    
+    -- Keep orientation at zeros
+    goalieOrientation = simGetObjectOrientation(goalie,-1)
+    position = simGetObjectPosition(goalie,-1)
+
+    if (1.45 < position[2] and position[2] < 1.55) then
+        -- Move to goalie position 
+        for i=1,15,1 do
+            setStepMode(walkingVel,maxWalkingStepSize,stepHeight,180,0,1)
+            simWait(0.05)
+        end
+        for i=1,10,1 do
+            setStepMode(walkingVel,maxWalkingStepSize,stepHeight,0,1,1)
+            simWait(0.05)
+        end
+    end
+    simAddStatusbarMessage("test")
+
+    -- Moves robot closer to goal at edges and further away when in middle
+    yBound = 1.9 + math.abs(position[1])*0.1
+    direction = (position[2] - yBound)*200
+    
+    speed = (xBall - 0.5)*200
+
+    if (position[1] < -xBound and speed > 0) then
+        speed = 0
+    end
+    
+    if (position[1] > xBound and speed < 0) then
+        speed = 0
+    end
+
+    if (speed > 6) then
+        speed = 6
+    end
+    
+    if (speed < -6) then
+        speed = -6
+    end
+
+    if (speed > 0) then
+        orientation = goalieOrientation[3]*2
+    else
+        orientation = -goalieOrientation[3]*2
+    end
+    
+    
+    if (speed < 0) then
+        speed = -speed
+        direction = -direction + 180
+    end
+    
+    -- When ball isn't in front of main cam then...
+     
+    if (xBall == 0.0009765625) then
+        speed = 0
+    end
+
+    setStepMode(speed, maxWalkingStepSize, stepHeight, direction, orientation, 1)
+    
+end
+
+
+while (true) do
+    stopTheGoals()
+end

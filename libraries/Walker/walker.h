@@ -42,7 +42,7 @@ private:
 	
 	float armRot_;
 	float armRotTarget_;
-	float armThrow_
+	float armThrow_;
 	float armThrowTarget_;
 
 	bool isAutonomous;

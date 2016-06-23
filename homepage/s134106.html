@@ -20,9 +20,9 @@
 				<a href="index.html" id="logo">Unicorn Riders</a>
 			<ul>
 				<li><a href="s114898.html" class="navbutton">Task 1</a></li>
-				<li><a href="s123354.html" class="navbutton">Task 2</a></li>
+				<li><a href="s123259.html" class="navbutton">Task 2</a></li>
 				<li><a href="s134106.html" class="navbutton">Task 3</a></li>
-				<li><a href="s123259.html" class="navbutton">Task 4</a></li>
+				<li><a href="s123354.html" class="navbutton">Task 4</a></li>
 				<li><a href="s123056.html" class="navbutton">Task 5</a></li>
 				<li><a href="s160769.html" class="navbutton">Task 6</a></li>
 			</ul>
@@ -37,7 +37,7 @@
 	<h6>Responsible: Christopher Prinds Bilberg (s134106)</h6>
 
 	<h2>Abstract</h2>
-	<p>After having implemented the required hardware and controllers for the robot in order to make it able to walk through the track, the next task is to make it do it autonoumsly. Multiple IR sensors are used as feedback to the robot to make it complete the racing track as fast as possible. The robot was relatively roboust when completing the track on its own however when interacting with other robots it had a hard time avoiding its opponent and often got flip upside down making it completely paralyzed.</p>
+	<p>After having implemented the required hardware and controllers for the robot in order to make it able to walk through the track, the next task is to make it do it autonoumsly. Multiple IR sensors are used as feedback to the robot to make it complete the racing track as fast as possible. </p>
 
 	<center>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/LnNlSqjbBRQ?list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx" frameborder="0" allowfullscreen></iframe>
@@ -66,12 +66,25 @@
 	</div>
 
 	<h2>Test and Performance</h2>
-	To test have well the autonomous implementation was working, the completion time was compared to the remote controlled robot in task 2. 
+	<p>To test have well the autonomous implementation was working, the completion time was compared to the remote controlled robot in task 2. A bar chart of the average run time with error margins (standard deviations) are shown in figure 3.</p>
+	<div class="row">
+		<div class="col-sm-6"><img src="pics/walkerRobotTest.png" width='450px' style="margin-bottom:0;"/><b>Figure 2: </b>Average run time result using remote and autonomous control.</div>
+		<div class="col-sm-6"><img src="pics/walkerBarChart.png" width='450px' style="margin-bottom:0;"/><b>Figure 3: </b>Bar chart of average run time.</div>
+	</div>
+	<p>It is pretty clear from the chart that the running time using the remote control is shorter than using the actual autonomous solution. This is due to the fact that the robot does not look for the shortest path but rather tries to avoid collision with the walls and hence might choose a detour as long as it finishes in the end. To test how sensitive the robot was to the light conditions it was tested both with and without light on the track. The confidence interval. The confidence interval for the difference between the two light conditions turned out to be [-0.06555604  1.74155604] with a p-value of 0.06 for the null hypothesis that the running time of the two are equal. Hence we accept the null hypothesis that the average running time is the same under different light condition since no significant difference is shown with a significance level of 5 %. </p>
 
 	<h2>Race</h2>
-	Even though the robot was finishing the track relatively well, when it was going alone different problems occured when competing against other robots. 
+	<p>As seen in task 2 the robot was pretty fast when using the remote control and actually ended up winning the comptetion. However when it had to compete autonomous against the other robots it ran into problems. Since the sensors were placed on top of the robot it could easily detect the walls however if the competing robot was below the sensor, the robot did not sense the other and ended up getting tangled or flipped around. Due to this the robot lost the majority of its races. So even though we built a quite fast robot, it still need some improvements in order to be able to compete autonomously. </p>
+
+	
+	<h2>Documentation</h2>
+	<p>See the link below for documentation of the walking robot.</p>
+	<a href="DoxyGen/index.html">
+  	<img border="0" src="pics/doxywizard.ico">
+	</a>
 
 	<h2>Conclusion</h2>
+	The autonomous part of the robot was implemented succesfully and tested. When racing on its own the robot completed the track without any problems, however it had some difficulties detecting the other robots when competing.
 </div>
 
 

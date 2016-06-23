@@ -1,0 +1,27 @@
+var walker__conf_8h =
+[
+    [ "ARM_HIP_MOTORID", "walker__conf_8h.html#a0db7b3424a8801ddd0603608cf948534", null ],
+    [ "ARM_KNEE_MOTORID", "walker__conf_8h.html#ae8570db4694256afc3dcd2f2b4fa8cfd", null ],
+    [ "FL_HIP_MOTORID", "walker__conf_8h.html#a3c2854fe0ce8d6bd4fb5ddd7a7b6c9c5", null ],
+    [ "FL_KNEE_MOTORID", "walker__conf_8h.html#a4bc0173ba07f0f14f28b7f9469b6f755", null ],
+    [ "FR_HIP_MOTORID", "walker__conf_8h.html#a1701c8a84ed4d594cbafc48244303191", null ],
+    [ "FR_KNEE_MOTORID", "walker__conf_8h.html#a657ae7abe138e11a4b338ec3cf457c81", null ],
+    [ "FRONT_IR_a", "walker__conf_8h.html#a2142bc6d217a94ff497e18e0ccca033b", null ],
+    [ "FRONT_IR_b", "walker__conf_8h.html#a477992458b31ece2e15335891b2f574c", null ],
+    [ "FRONT_IR_SENSORID", "walker__conf_8h.html#abb73d5fc934afd5f6d06bfb1cd0640a7", null ],
+    [ "LEFT_IR_a", "walker__conf_8h.html#afe17ac723b2f4775d3e5f8bf269f640c", null ],
+    [ "LEFT_IR_b", "walker__conf_8h.html#ad7216548ed326eb8b28203c0ad6ec834", null ],
+    [ "LEFT_IR_SENSORID", "walker__conf_8h.html#a2fdcfc17f6f718afd02b24be464400d4", null ],
+    [ "RIGHT_IR_a", "walker__conf_8h.html#a93173efd457f4c672da05b0b879cca8b", null ],
+    [ "RIGHT_IR_b", "walker__conf_8h.html#a38e95c48387a39cdfd970e42eb001d6a", null ],
+    [ "RIGHT_IR_SENSORID", "walker__conf_8h.html#ab84be1b7914ef3f33fe656e0f88cea6d", null ],
+    [ "RL_HIP_MOTORID", "walker__conf_8h.html#a2d27ca25dd505dad5719d0c45d9a984d", null ],
+    [ "RL_KNEE_MOTORID", "walker__conf_8h.html#a94ce97dbad2daccb530d658cd2658747", null ],
+    [ "RR_HIP_MOTORID", "walker__conf_8h.html#ad55b1b75577b60b6612ed565c2ad60ae", null ],
+    [ "RR_KNEE_MOTORID", "walker__conf_8h.html#af03efc67df65475ed5f0f1490faa426e", null ],
+    [ "frontNN", "walker__conf_8h.html#af1ad3f70091c3ff89f34c149f7bf2857", null ],
+    [ "hipCycle", "walker__conf_8h.html#a0a73f6bd934b489b7c5e952cf06bb857", null ],
+    [ "kneeCycle", "walker__conf_8h.html#a4fa8ca170cf668d7aec55f59ab7c3027", null ],
+    [ "leftNN", "walker__conf_8h.html#ab5d7e94debba186acc5f29cfd18ae9fe", null ],
+    [ "rightNN", "walker__conf_8h.html#a0b55e745599a81921e6395d3f4271816", null ]
+];

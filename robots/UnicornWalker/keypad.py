@@ -5,6 +5,7 @@ import Tkinter as tk
 import time
 import os
 import matplotlib
+from datetime import datetime
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
@@ -15,13 +16,15 @@ import sys
 serial = Serial('/dev/ttyUSB0', baudrate=57600, timeout=0.7)
 
 logFile = open("Output.txt", "w")
-
+timeA = datetime.now();
+timeB = datetime.now();
 ## SERIAL WORKER SETUP FOR ASYNC WRITING
 serialQueue = Queue()
 def serialWorkerFunction(queue):
     while True:
         # get job or wait for new job in queue 
         command = queue.get()
+        timeA = datetime.now();
         addLineToConsole("send: '%s'\n" % command)
         serial.write(command)
         readSerial(command)
@@ -53,6 +56,7 @@ def serialCommander(command, line):
             addLineToConsole(line[1:] + "\n")
         else:
             addLineToConsole("command verified\n")
+
 
         # Update view state
         if command == 't':

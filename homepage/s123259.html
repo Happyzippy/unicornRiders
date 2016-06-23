@@ -1,4 +1,4 @@
-<!--Task 4. Responsible Emil Tyge-->
+<!--Task 2. Responsible Emil Tyge (s123259)-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  	<title>Unicorn Riders | s123259 </title>
+  	<title>Unicorn Riders | s123259</title>
 </head>
 
 <body>
@@ -20,9 +20,9 @@
 				<a href="index.html" id="logo">Unicorn Riders</a>
 			<ul>
 				<li><a href="s114898.html" class="navbutton">Task 1</a></li>
-				<li><a href="s123354.html" class="navbutton">Task 2</a></li>
+				<li><a href="s123259.html" class="navbutton">Task 2</a></li>
 				<li><a href="s134106.html" class="navbutton">Task 3</a></li>
-				<li><a href="s123259.html" class="navbutton">Task 4</a></li>
+				<li><a href="s123354.html" class="navbutton">Task 4</a></li>
 				<li><a href="s123056.html" class="navbutton">Task 5</a></li>
 				<li><a href="s160769.html" class="navbutton">Task 6</a></li>
 			</ul>
@@ -31,8 +31,134 @@
 
 <div class="main">
 	<div class="container">
-		<h1>Task 4</h1>
+		<h1>Remote Controlled Walking Robot</h1>
 	</div>
+
+	<h6>Responsible: Emil Tyge (s123259)</h6>
+
+	<h2>Abstract</h2>
+
+<center>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/S9j-WS7vqMo?list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx" frameborder="0" allowfullscreen></iframe>
+</center>
+
+	<h2>Design</h2>
+
+	<p>Task number two is remote controlled race with a non wheeled robot. This challenge proposes two performance measures (speed and maneuvreability) and a single constraint (no wheels). With 8 motors at hand a four legged robot was chosen since this is a common trait among fast land animals. This provides two degrees of freedom per leg, enough to move each foot along the surface of a sphere.</p>
+
+	<p>The robot is designed with a tight body and small legs, to keep the weight low and structural stiffness high. While each leg is attached to the body in a plane, such that it can flex a bit up and down, like an animal would with its spine.</p>
+
+	<p>In order to get tracktion the feet were padded with foam and ballons.</p>
+
+	<h3>Leg Modelling</h3>
+
+	<div class="container">
+	<div class="extra">
+		<div class="row">
+  			<div class="col-md-8"><p>As a basis for gait development, a model of the leg movement is made. <a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters">Denavit-Hartenberg (DH) parameters</a>, often used to model movement of robot arms is here used, as it provides the proper constraints to movement. The DH-parameters are as follows. And the leg is visualized to the right.</p>
+
+  			<br>
+  			<table style="width:80%; margin:10px">
+			  <tr>
+			  	<th>Joint</th>
+			    <th>θ</th>
+			    <th>d</th>
+			    <th>a</th>
+			    <th>α</th>
+			  </tr>
+			  <tr>
+			    <td>1</td>
+			    <td>Q1</td>
+			    <td>-2 cm</td>
+			    <td>4.5 cm</td>
+			    <td>π/2</td>
+			  </tr>
+			  <tr>
+			    <td>2</td>
+			    <td>Q1 - π/2</td>
+			    <td>0</td>
+			    <td>8 cm</td>
+			    <td>0</td>
+			  </tr>
+			</table>
+
+  			</div>
+  			<div class="col-md-4"><img src="pics/unicornLeg.svg" width='250px' style="margin-bottom:0;"/></div>
+		</div>
+	</div>	
+</div>
+
+
+	<h3>Gait development</h3>
+	
+	<p>Again looking at nature, an example of a fast gait is the trot. This type of gait provides dynamic stability, by alternating which set, of diagonal pair legs, touches the ground.
+	Looking at a single leg, the foot travels in a somewhat circular motion, providing forward traction via a linear movement along the floor, followed by a quick lift and movement to reposition the foot furter in front.
+	For all legs the diagonals are syncronized, and each diagonal, phase shifted 90 degrees.</p>
+
+	<p>Turning and speed control can be achieved, by elongating the circular shape at each side of the robot respectively. Mathematically as a linear combination of a basis gait shape.</p>
+
+	<p>With the leg model to visualize the path of the foot, assuming that it provides a single point of contact, the basis gait shape is designed.</p>
+
+	<p>To provide propper support during the change from between which set of legs are lifted, they are all four at the gound just when the change happens. Otherwise one set, travels as linearly as the 2 DOF legs can along the floor, and the other reposition the leg in a soft curve.
+	After the initial key point design, the path is interpolated smoothly with the help of a circular hann based filter.</p>
+
+	<p>The actuator values are saved in a constant integer array for fast lookup, by a pattern generation function, in order to limit the load on the micro processor.</p>
+
+	<img src="pics/gait.svg" width='100%' style="margin-bottom:0;"/>
+
+	<h3>Software</h3>
+
+	<p>
+	The Software is written in C++ and python. C++ for the on board embedded system, and python as a controller client.</p>
+	
+	<p>
+	The Embedded system consists of a Walker object, containing initialization, communication interrupts and control loop for the robot. Configuration is found in a seperate file walker_conf.h defining sensor and motor ids and walk cycle data.
+	Each leg is abstracted in a class, WalkerLeg, providing easy positioning of each leg.
+	And similarly for the IR sensors and their calibration/remapping, used in the later autonomous task.</p>
+	
+	<p>
+	Communication to the PC takes place as a serial connection over Zigbee. The protocol used is a very simple master/slave system where the PC can poll or command the robot by sending characters as command, and then receive an acknowledgement along with aditional data.</p>
+	
+	<p>The commands, are movement via WASD on the keyboard, controlling a target speed and direction. In order to obtain soft leg movement, the target speed and direction is low pass filltered. The output is then used to calculate parameters for the walk cycle.</p>
+
+
+	<p>On the computer a python based client implements a simple threaded serial connection system with a command queue. The queue is filled either from keypresses, or by automated workers, polling for status data at a given interval.
+	The GUI is designed as a simple terminal and data plot using the Tkinter package.</p>
+
+	<p>Below is an image of the GUI and a flowchart of how the data flows between workers and the GUI.</p>
+	
+	<div class="container">
+		<div class="extra">
+			<div class="row">
+	  			<div class="col-md-6"><img src="pics/walker_gui.png" width='400px' style="margin-bottom:0;"/></div>
+	  			<div class="col-md-6"><img src="pics/gui_flow_chart.svg" width='400px'style="margin-bottom:0;"/></div>
+			</div>
+		</div>
+	</div>
+
+	<h2>Test and Performance</h2>
+	
+	<p>The robot was tested by walking through the race track remote controlled. The data on this is shown in <a href="s134106.html" class="navbutton">Task 3</a> It achieved a mean completion time of 12.74 s, with an average speed, of 0.31 m/s. On the GUI, a data logger a </p>
+
+	<p>Furthermore the communications were timed. There is on average 112 ms round trip for a status poll retrieving current sensor data. Making for quite responsive remote controlling.</p>
+
+
+
+	<h2>Race</h2>
+
+	<p>We won! The walking pattern turned out to be more effecient than many of the other robots, and the communication system proved more stable. These key advantages left the other robots in the dust!</p>
+	
+
+	<h2>Documentation</h2>
+	<p>See the link below for documentation of the walking robot.</p>
+	<a href="DoxyGen/index.html">
+  	<img border="0" src="pics/doxywizard.ico">
+	</a>
+
+	<h2>Conclusion</h2>
+	
+	<p>A small robot, advanced but efficient walking pattern, robust and stable mechanical design, great traction with balloons was created. Stable and fast communication system. Datalogging system proved valuable for debugging and optimization.</p>
+
 </div>
 
 

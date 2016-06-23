@@ -8,15 +8,16 @@ A = @(p) [cos(p(1)) -sin(p(1))*cos(p(4))  sin(p(1))*sin(p(4)) p(3)*cos(p(1))
           0          sin(p(4))            cos(p(4))           p(2)
           0          0                    0                   1 ];  
 
-%Denavit Hartemberg parameters
+%Denavit Hartemberg parameters (theta, d, a, alpha)
 AltoParam = @(q) [q(1)   -0.02     0.045      pi/2
                   q(2)-pi/2     0     0.08   0];
 
 q_initial = [0 0];
 q_initial = q_initial./(180/pi)
-%figure(101)
-%plot_robot(AltoParam(q_initial))
-
+figure(101)
+plot_robot(AltoParam(q_initial))
+title('Leg Model')
+grid on
 %% Calculate inverse kinematic solution
 
 syms q1_ d1_ r1_ a1_ q2_ q2x_ r2_
@@ -60,12 +61,12 @@ q2 = [45 41.5 40 40  41.5  45  55  63 59 53]*2-40;
 
 
 figure(1)
+subplot(1,3,1)
 plot((0:length(q1)-1)*softMultiplier,q1)
 hold on
 plot((0:length(q2)-1)*softMultiplier,q2)
 grid on
 plot(softMultiplier*[5 5], ylim,'k')
-
 
 q1 = repmat(q1,softMultiplier,1)
 q1 = cconv(q1(:), filt, numel(q1));
@@ -80,9 +81,15 @@ q2 = round(q2*angle2command) * command2angle
 plot([0:length(q1)-1], q1)
 plot([0:length(q1)-1], q2)
 hold off
+axis tight
+ylabel('Angle [deg]')
+xlabel('Timestep')
+title('Motor Angles')
+legend('hip', 'knee', 'Q1', 'Q2', 'Location', 'northoutside', 'Orientation', 'horizontal')
 
-figure(2)
-clf
+figure(1)
+subplot(1,3,2)
+%clf
 hold on
 plot3(0, 0, 0, 'ko')
 daspect([1 1 1])
@@ -98,16 +105,26 @@ data(end+1,:) = data(1,:)
 plot3(data(:,1), data(:,2), data(:,3),'k.-')
 hold off
 grid on
-view(0,0)  % XY
+view(-50,35)  % XY
+title('3d Path')
+xlabel('x [m]')
+ylabel('y [m]')
+zlabel('z [m]')
+legend('Origo','Path','Location', 'northoutside', 'Orientation', 'horizontal')
 
-figure(3)
+figure(1)
+subplot(1,3,3)
 plot(sqrt(sum(diff(data).^2,2))/length(q1),'k')
 hold on
 plot(diff(data)/length(q1))
 plot(softMultiplier*[5 5], ylim,'k')
 hold off
-legend('v','dx','dy','dz')
-
+grid on
+axis tight
+legend('v','dx','dy','dz', 'Location', 'northoutside', 'Orientation', 'horizontal')
+title('Foot speed')
+ylabel('speed [m/s]')
+xlabel('Timestep')
 
 %% Code Generate walker_conf.cpp
 fid=fopen('walker_conf.cpp','wt');

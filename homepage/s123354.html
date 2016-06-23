@@ -1,4 +1,4 @@
-<!--Task 2. Responsible Peter Kreipke Madsen-->
+<!--Task 4. Responsible Peter Preben Kriepke Madsen -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  	<title>Unicorn Riders | s123354</title>
+  	<title>Unicorn Riders | s123354 </title>
 </head>
 
 <body>
@@ -20,9 +20,9 @@
 				<a href="index.html" id="logo">Unicorn Riders</a>
 			<ul>
 				<li><a href="s114898.html" class="navbutton">Task 1</a></li>
-				<li><a href="s123354.html" class="navbutton">Task 2</a></li>
+				<li><a href="s123259.html" class="navbutton">Task 2</a></li>
 				<li><a href="s134106.html" class="navbutton">Task 3</a></li>
-				<li><a href="s123259.html" class="navbutton">Task 4</a></li>
+				<li><a href="s123354.html" class="navbutton">Task 4</a></li>
 				<li><a href="s123056.html" class="navbutton">Task 5</a></li>
 				<li><a href="s160769.html" class="navbutton">Task 6</a></li>
 			</ul>
@@ -31,26 +31,95 @@
 
 <div class="main">
 	<div class="container">
-		<h1>Remote Controlled Walking Robot</h1>
+		<h1>Robotic Toy</h1>
 	</div>
 
-	<h6>Responsible: Peter Kreipke Madsen (s123354)</h6>
+	<h6>Responsible: Peter Preben Kriepke Madsen (s123354)</h6>
 
 	<h2>Abstract</h2>
+	<p>For the robotic toy, a turret was built. It is capable of throwing light objects, such as table tennis balls and the goal is to hit a dartboard or a target placed in front of the dartboard and score most points from 5 throws.</p>
 
-<center>
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/S9j-WS7vqMo?list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx" frameborder="0" allowfullscreen></iframe>
-</center>
+	<center>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/7hqW4y8TBjc" frameborder="0" allowfullscreen></iframe>
+	</center>
 
 	<h2>Hardware Design</h2>
+	<p>The turret uses 2 servo motors, one to control the angle of the throw in the horizontal plane and the other to control the angle of the throw in the vertical plane.	Some considerations had to be made when designing the length of the turrets "arm". A long arm would grant a longer reach for the object to be thrown, but sacrifice speed due to its weight. However with a short arm, the ball would not reach a high velocity, therefore the distance the object will thrown is rather short. With these considerations in mind, the optimal length of the arm was chosen, that is from what was possible with the available equipment. The object to be thrown is positioned at the tip of the turrets arm. For stability, 2 weights of 2.5 kg were placed on each of the side legs on the turret, therefore reducing the amount of shocks that the turret causes when throwing the object.</br>
+	The target consists of another touch sensor shown in figure 5, whenever the target is hit a point is scored and a point sound is played from a Zigbee connected computer. A GUI is designed and shown on the Zigbee connected computer, to keep track of the amount of shots made and the amount of points scored.</p>
+	
+	<div class="container">
+		<div class="extra">
+			<div class="row">
+				<div class="col-sm-4"><img class="center-block" src="pics/EndPos.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"><img class="center-block" src="pics/StartPos.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"><img class="center-block" src="pics/Angle.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"></br><b>Figure 1: </b>End position of the shot with the turret.</div>
+				<div class="col-sm-4"></br><b>Figure 2: </b>Start position of the shot with the turret.</div>
+				<div class="col-sm-4"></br><b>Figure 3: </b>The ball is thrown, the arm is at the end position and it is ready to fire again.</div>
+				<div class="col-sm-6"><img class="center-block" src="pics/Toy.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-6"><img class="center-block" src="pics/Target.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-6"></br><b>Figure 4: </b>Complete game including the targets to hit with the turret, the dartboard and touch sensor.</div>
+				<div class="col-sm-6"></br><b>Figure 5: </b>Close up of the touch sensor.</div>
+			</div>
+		</div>
+	</div>
+	</br>
 
 	<h2>Implementation</h2>
+	<p>The software implemented in the turret uses the "turret" class to move the arm. The most relevant function in this class is the update() function, that controls the movement of the turret as shown in figure 6.
+
+	<div class="container">
+		<div class="row">
+				<div class="col-sm-12"><img class="center-block" src="pics/thruster_flow_chart.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 6: </b>Flow chart of the update() function.</div>
+		</div>
+	</div> 
+	</br>
+
+	<p>The first state is where the arm is free to move, that is the motors are in wheel mode and it is possible to manually place the arm at a wanted postition. If the button is pressed and held, then the end position of the arm for the throw is stored and the arm is set to wheel mode again so it can be moved manually. If the button is released, then the vertical motor will switch to joint mode and set the goal position of the motor to the stored position, thereby throwing the ball. After a delay of 2 seconds, "THROW" will be printed through a sereial connection to the used GUI and thereby notifying that a shot has been fired and counting these. At the same time the motors on the turret is reset, making it possible to make another shot. Lastly, if the touch sensor target was hit, then "GOAL" will be printed through the serial connection to the GUI to notify that a point has been scored and thereby counting these points as seen on figure 7.
+	The function update() in the turret class uses the WalkerLeg class from task 2 and 3 to move the arm in the same way as the legs in these tasks.</p>
+
+	<!-- Picture of the used GUI -->
 
 	<h2>Test and Performance</h2>
+	<p>To test how well the turret is working, the max range and accuracy of the shots made by the turret were measured upon. A table tennis ball was used for all tests. The tests were made by measuring the angle of the end position of the arm, relative to the distance the ball flew. The angle is 0 degrees when the arm is positioned horizontally in front of its legs (the direction of the shot) and 90 degrees when positioned vertically. The start position were always placed 6.5 cm above the ground.</br></p>
 
-	<h2>Race</h2>
+	<div class="container">
+		<div class="row">
+				<div class="col-sm-6"><img class="center-block" src="pics/turretData.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 8: </b>Test data from the experiments.</div>
+				<div class="col-sm-6"><img class="center-block" src="pics/turretTestBarChart.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 9: </b>Bar chart of the throwing length relative to the end angle of the arm.</div>
+		</div>
+	</div> 
+	</br>
+
+	<p>Figure 9 shows the bar chart of the 5 measured angles used in the tests along with the average distances the ball flew. As seen, figure 9 shows that the optimal angle for the throws are 20 deg. However, figure 8 shows that only 3 datapoints were made due to the arm having too much momentum to stop at the wanted position, therefore moving its arm further down than the 20 degrees. At this angle, the turret is a bit unstable in its throws, therefore the optimal angle for the throws are 90 degrees. The reason for this might be because that the tip of the arm is bent a bit, making a small angle and therefore throwing the ball at a lower angle than the actual 90 degrees. Since the tests were to determine what angle of the arm should have to reach the maximum distance, tests with angles above 90 degrees were not included due to throwing the ball higher up, than further away. When the arms end position is higher than 60 degrees, the accuracy of the throws are rather precise with only a couple of centimeters in uncertainty.</p>
+	
+	<h2>Competition</h2>
+	<p>There were 3 criterias for the toys in the competition, Playfulness, Originality, Design and implementation. Figure 10 shows the results from the competition.</br></p>
+
+	<div class="container">
+		<div class="row">
+				<div class="col-sm-12"><img class="center-block" src="pics/BlackBoard.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 10: </b>Results from the competition with toys.</div>
+		</div>
+	</div> 
+	</br>	
+
+	<b>Playfulness</b></br>
+	<p>The turret scored 4.2 out of 5 in the playfulness criteria, which shows that the turret is a fun toy to use, especially because it can be used in many different games. For young children it might be used to crush the enemy castle made of other light materials, or it could be used the way it was used in the competition. For the younger generation, beer pong might be a fun way to use the turret too.</p>
+
+	<b>Originality</b></br>
+	<p>The turret scored 4.18 out of 5 in the originality criteria, which shows that the turret is rather unseen before or "new" to the market. However the high score might be due to the nice students evaluating it, or be because of how fun the turret was to play with. A quick search of "ball throwing robot" on the internet grants a long list of ball throwing robots that already has been made. The game itself might be somewhat unique though.</p>
+
+	<b>Design and implementation</b></br>
+	<p>The turret scored 4.2 out of 5 in the design and originality criteria, which shows that people associates the turret with an ball throwing device, like a catapult. The turret does resemble a catapult a lot, both in design and functionality, which was also what the toy was inspired by. The ability to get into the game and see the result fast, makes proves that the turret was designed for easy use and fast gameplay.</p>
+
+	<h2>Documentation</h2>
+	<p>See the link below for documentation of the robotic toy.</p>
+	<a href="DoxyGen/index.html">
+  	<img border="0" src="pics/doxywizard.ico">
+	</a>
 
 	<h2>Conclusion</h2>
+	<p>The turret was designed for easy usage, fast gameplay and to be fun to play with. The results in figure 10 proves that these criterias were achieved. The bar chart in figure 9 shows that the closer the angle of the arm is to 90 degrees, the further away the ball can be thrown. However, the ball can not be thrown that far and for future work, allowing the ball to throw even further would increase the playfulness score. Moreover using a camera, the turret could become an oppenent to play against in a game by having the turret to locate a target and adjust the motors, so that the final postion of the arm in the throw, would cause the ball to hits its target. To conclude, the turret is a fun toy to play with, however there is room for improvement.</br></p>
 
 </div>
 

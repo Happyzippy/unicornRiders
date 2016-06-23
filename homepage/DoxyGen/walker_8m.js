@@ -1,0 +1,28 @@
+var walker_8m =
+[
+    [ "data", "walker_8m.html#a2042a10b550358102c40966cac61268e", null ],
+    [ "data", "walker_8m.html#a386acea68c8b6efee3ecd059e65fe2c7", null ],
+    [ "fclose", "walker_8m.html#a5e769bbbabcaddc548203741c7100228", null ],
+    [ "figure", "walker_8m.html#a9310eb3b613dbd3a40109e1e16cb2c4f", null ],
+    [ "fprintf", "walker_8m.html#ae94a5c82124989fb5c7c151be9f02e5a", null ],
+    [ "fprintf", "walker_8m.html#a5b086161cc5c16725c2cc2118cc07789", null ],
+    [ "fprintf", "walker_8m.html#a9d5ac0cc429c9931a902c72334808007", null ],
+    [ "fprintf", "walker_8m.html#a36e53d4b674ad4e6b741a9863e3f767b", null ],
+    [ "fprintf", "walker_8m.html#a52b0dacf4a76c5d6fa4d47097d0b2c89", null ],
+    [ "mdl", "walker_8m.html#a339119f779be913c2c18bfc9fa6de59f", null ],
+    [ "mdl", "walker_8m.html#a21607c72d9ffb1f11cf9a71f9dca8b6f", null ],
+    [ "parameters", "walker_8m.html#aef62971cf98492d5c2a656ef8d38cb31", null ],
+    [ "plot", "walker_8m.html#ac52e04578a04e9e5fcdeafd47ca4c04e", null ],
+    [ "A", "walker_8m.html#aeb28fe329735f2b223000cb97eec7a5a", null ],
+    [ "all", "walker_8m.html#ab96fbba880a3dc40b9964ba4b97ebd78", null ],
+    [ "d", "walker_8m.html#a1aabac6d068eef6a7bad3fdf50a05cc8", null ],
+    [ "d_", "walker_8m.html#a23d96cf53a9bf9a23a8d12d317703971", null ],
+    [ "data", "walker_8m.html#a511ae0b1c13f95e5f08f1a0dd3da3d93", null ],
+    [ "filt", "walker_8m.html#a3024a5497d7d8a379b6fd41a8b2f702c", null ],
+    [ "q", "walker_8m.html#a60313970d1b39c15ae685a5df1266c94", null ],
+    [ "q1", "walker_8m.html#a7989bd4ae7ff762f92505b171b309f16", null ],
+    [ "q2", "walker_8m.html#a8cef88502714262ffbf4c93f2c5ab4af", null ],
+    [ "q_initial", "walker_8m.html#a0121ae425f2df2438e7dfd223fbfb5b3", null ],
+    [ "str", "walker_8m.html#a4b99ff73a8a869319570237b5c57ab03", null ],
+    [ "T", "walker_8m.html#adf1f3edb9115acb0a1e04209b7a9937b", null ]
+];

@@ -17,6 +17,7 @@
 #define REG_CCW_Angle_Limit 8
 #define REG_CONTROL_MODE 11
 #define REG_GOAL_POSITION 30
+	
 
 /* Dynamixel Joint constants */
 #define SERVO_MAX 1023

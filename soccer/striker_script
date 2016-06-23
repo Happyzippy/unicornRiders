@@ -1,0 +1,97 @@
+-- This threaded script is the main control script of the ant. It generates the body movement and controlls 
+-- another script (non-threaded) that is in charge of generating the walking movement.
+-- The other script is controlled via simulation parameters: this script writes the parameters (simSetScriptSimulationParameter)
+-- and the other script reads the parameters (simGetScriptSimulationParameter).
+
+antBase=simGetObjectHandle('Ant_base#3')
+legBase=simGetObjectHandle('Ant_legBase#3')
+sizeFactor=simGetObjectSizeFactor(antBase)
+vel=0.05
+accel=0.05
+initialP={0,0,0}
+initialO={0,0,0}
+initialP[3]=initialP[3]-0.03*sizeFactor
+simMoveToPosition(legBase,antBase,initialP,initialO,vel,accel)
+
+stepHeight=0.04*sizeFactor
+maxWalkingStepSize=0.2*sizeFactor
+walkingVel=5
+
+roboPos = {0,0,0}
+
+
+
+moveToGoal = function()
+    -- Position relative to goal
+    roboPos=simGetObjectPosition(antBase, leftGoal)
+    setStepMode(walkingVel, maxWalkingStepSize, stepHeight, 0, 0, 1)
+end
+
+
+
+moveToBall=function()
+    --variables
+    xBall = 0
+    yBall = 0
+    lastX = 0
+    direction=0
+
+    -- Read sensor input and find x coordinates of ball
+    cam = simGetObjectHandle("Vision_sensor#3")
+    result,pack,pack2=simReadVisionSensor(cam)
+    if (pack2) then
+        xBall = pack2[2]
+        yBall = pack2[3]
+    end
+    
+    -- store most recent xValue
+    if (xBall ~= .00390625)then
+        lastX = xBall
+    end
+    
+    -- if you cant see the ball then turn
+    if (xBall > .00390625) then
+        --direction=300*(0.5-xBall)
+        direction=(135/2)*(0.5-xBall)/0.5
+        if direction<0 then
+            direction=360+direction
+        end
+        if xBall<0.4 then
+            walkingVel=3
+            setStepMode(walkingVel, maxWalkingStepSize, stepHeight, 0, -1, 1)
+        elseif xBall>0.6 then
+            walkingVel=3
+            setStepMode(walkingVel, maxWalkingStepSize, stepHeight, 0, 1, 1)
+        else
+            walkingVel=5
+            setStepMode(walkingVel, maxWalkingStepSize, stepHeight, direction, 0, 1)
+        end
+    else
+        if (lastX < 0.5) then
+            setStepMode(walkingVel*0.5, maxWalkingStepSize*0.5, stepHeight, 0, -1, 1)
+        else
+            setStepMode(walkingVel*0.5, maxWalkingStepSize*0.5, stepHeight, 0, 1, 1)
+        end
+    end
+    print(xBall.. ', ' ..lastX.. ',' ..direction)
+end
+
+
+
+-- Sets robot mode. Move forward or spin, speed, etc.)
+setStepMode=function(stepVelocity,stepAmplitude,stepHeight,movementDirection,rotationMode,movementStrength)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepVelocity',stepVelocity)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepAmplitude',stepAmplitude)
+    simSetScriptSimulationParameter(sim_handle_tree,'stepHeight',stepHeight)
+    simSetScriptSimulationParameter(sim_handle_tree,'movementDirection',movementDirection)
+    simSetScriptSimulationParameter(sim_handle_tree,'rotationMode',rotationMode)
+    simSetScriptSimulationParameter(sim_handle_tree,'movementStrength',movementStrength)
+end
+
+
+while(true) do
+    
+    --moveToGoal()
+    
+    moveToBall()
+end
