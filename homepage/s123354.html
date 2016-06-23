@@ -50,14 +50,14 @@
 	<div class="container">
 		<div class="extra">
 			<div class="row">
-				<div class="col-sm-4"><img class="center-block" src="pics/EndPos.jpg" width='300px' style="margin-bottom:0;"/></div>
-				<div class="col-sm-4"><img class="center-block" src="pics/StartPos.jpg" width='300px' style="margin-bottom:0;"/></div>
-				<div class="col-sm-4"><img class="center-block" src="pics/Angle.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"><img class="center-block" src="pics/EndPos.JPG" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"><img class="center-block" src="pics/StartPos.JPG" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-4"><img class="center-block" src="pics/Angle.JPG" width='300px' style="margin-bottom:0;"/></div>
 				<div class="col-sm-4"></br><b>Figure 1: </b>End position of the shot with the turret.</div>
 				<div class="col-sm-4"></br><b>Figure 2: </b>Start position of the shot with the turret.</div>
 				<div class="col-sm-4"></br><b>Figure 3: </b>The ball is thrown, the arm is at the end position and it is ready to fire again.</div>
-				<div class="col-sm-6"><img class="center-block" src="pics/Toy.jpg" width='300px' style="margin-bottom:0;"/></div>
-				<div class="col-sm-6"><img class="center-block" src="pics/Target.jpg" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-6"><img class="center-block" src="pics/Toy.JPG" width='300px' style="margin-bottom:0;"/></div>
+				<div class="col-sm-6"><img class="center-block" src="pics/Target.JPG" width='300px' style="margin-bottom:0;"/></div>
 				<div class="col-sm-6"></br><b>Figure 4: </b>Complete game including the targets to hit with the turret, the dartboard and touch sensor.</div>
 				<div class="col-sm-6"></br><b>Figure 5: </b>Close up of the touch sensor.</div>
 			</div>
@@ -78,14 +78,19 @@
 	<p>The first state is where the arm is free to move, that is the motors are in wheel mode and it is possible to manually place the arm at a wanted postition. If the button is pressed and held, then the end position of the arm for the throw is stored and the arm is set to wheel mode again so it can be moved manually. If the button is released, then the vertical motor will switch to joint mode and set the goal position of the motor to the stored position, thereby throwing the ball. After a delay of 2 seconds, "THROW" will be printed through a sereial connection to the used GUI and thereby notifying that a shot has been fired and counting these. At the same time the motors on the turret is reset, making it possible to make another shot. Lastly, if the touch sensor target was hit, then "GOAL" will be printed through the serial connection to the GUI to notify that a point has been scored and thereby counting these points as seen on figure 7.
 	The function update() in the turret class uses the WalkerLeg class from task 2 and 3 to move the arm in the same way as the legs in these tasks.</p>
 
-	<!-- Picture of the used GUI -->
+	<div class="container">
+		<div class="row">
+				<div class="col-sm-12"><img class="center-block" src="pics/turret_gui.png" width='200px' style="margin-bottom:0;"/><b>Figure 7: </b>GUI used to count points scored by hitting the touch sensor.</div>
+		</div>
+	</div> 
+	</br>
 
 	<h2>Test and Performance</h2>
 	<p>To test how well the turret is working, the max range and accuracy of the shots made by the turret were measured upon. A table tennis ball was used for all tests. The tests were made by measuring the angle of the end position of the arm, relative to the distance the ball flew. The angle is 0 degrees when the arm is positioned horizontally in front of its legs (the direction of the shot) and 90 degrees when positioned vertically. The start position were always placed 6.5 cm above the ground.</br></p>
 
 	<div class="container">
 		<div class="row">
-				<div class="col-sm-6"><img class="center-block" src="pics/turretData.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 8: </b>Test data from the experiments.</div>
+				<div class="col-sm-6"><img class="center-block" src="pics/turretData.JPG" width='450px' style="margin-bottom:0;"/><b>Figure 8: </b>Test data from the experiments.</div>
 				<div class="col-sm-6"><img class="center-block" src="pics/turretTestBarChart.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 9: </b>Bar chart of the throwing length relative to the end angle of the arm.</div>
 		</div>
 	</div> 
@@ -98,7 +103,7 @@
 
 	<div class="container">
 		<div class="row">
-				<div class="col-sm-12"><img class="center-block" src="pics/BlackBoard.jpg" width='450px' style="margin-bottom:0;"/><b>Figure 10: </b>Results from the competition with toys.</div>
+				<div class="col-sm-12"><img class="center-block" src="pics/BlackBoard.JPG" width='450px' style="margin-bottom:0;"/><b>Figure 10: </b>Results from the competition with toys.</div>
 		</div>
 	</div> 
 	</br>	

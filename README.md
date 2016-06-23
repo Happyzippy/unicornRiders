@@ -33,35 +33,31 @@ Repository for 31384 Modular robotics, team Unicorn Riders
 	- [x] Hardware
 	- [x] Code
 	- [x] Competition
-	- [ ] Webpage
-	- [ ] Take apart 
+	- [x] Webpage
+	- [x] Take apart 
 2. RC Non-Wheeled Robot Race
-	- [ ] Design
-	- [ ] Build
-	- [ ] Code Structure
-	- [ ] Gait generation
-	- [ ] Remote control
-	- [ ] Competition
-	- [ ] Webpage
+	- [x] Design
+	- [x] Build
+	- [x] Code Structure
+	- [x] Gait generation
+	- [x] Remote control
+	- [x] Competition
+	- [x] Webpage
 3. Autonomous Non-Wheeled Robot Race
-	- [ ] Hardware
-	- [ ] Code
-	- [ ] Competition
-	- [ ] Webpage
+	- [x] Hardware
+	- [x] Code
+	- [x] Competition
+	- [x] Webpage
 4. Robotic Toy
-	- [ ] Hardware
-	- [ ] Code
-	- [ ] Competition
-	- [ ] Webpage
+	- [x] Hardware
+	- [x] Code
+	- [x] Competition
+	- [x] Webpage
 5. Soccer robot simulation framework
-	- [ ] Code
-	- [ ] Competition
-	- [ ] Webpage
+	- [x] Code
+	- [x] Competition
+	- [x] Webpage
 6. Soccer playing robot
-	- [ ] Code
-	- [ ] Competition
-	- [ ] Webpage
-7. AI component for soccer robot
-	- [ ] Code
-	- [ ] Competition
-	- [ ] Webpage
+	- [x] Code
+	- [x] Competition
+	- [x] Webpage

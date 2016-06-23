@@ -37,7 +37,7 @@
 	<h6>Responsible: Christopher Prinds Bilberg (s134106)</h6>
 
 	<h2>Abstract</h2>
-	<p>After having implemented the required hardware and controllers for the robot in order to make it able to walk through the track, the next task is to make it do it autonoumsly. Multiple IR sensors are used as feedback to the robot to make it complete the racing track as fast as possible. </p>
+	<p>After having implemented the required hardware and controllers for the robot in order to make it walk through the track, the next task was to make it walk autonomously. Multiple IR sensors are used as feedback to the robot to make it complete the racing track as fast as possible. However it turned out that it had some minor issues detecting the other robots and thus did not perform as good as expected in the competition. </p>
 
 	<center>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/LnNlSqjbBRQ?list=PLD2nLW3v_NrZVv4B6ez5vbMuzDKCZK9tx" frameborder="0" allowfullscreen></iframe>
@@ -47,18 +47,18 @@
 	<p>The autonomous control is implemented on the same robot as used for the remote controlled task, as described in task 2. The only difference is that 3 IR sensors have been added to the front of the robot; one sensor pointing straight, one at a -45 degrees angle and one at a +45 degrees angle.</p>
 
 	<h2>Implementation</h2>
-	<p>The robot software has been implemented as 3 classes as shown in figure 2. The main class walker is responsible for the overall control of the robot. The two most essential functions are walkTrot() and walkRotate() that can be used for making the robot move forward/backward and rotate respectively.</p>
+	<p>The robot software has been implemented as 3 classes as shown in figure 2. The main class Walker is responsible for the overall control of the robot. The two most essential functions are walkTrot() and walkRotate() that are used for making the robot move forward/backward and rotate respectively.</p>
 
 	<p> 
-	The walker has four legs which have been implemented as seperate instances of the walker_leg class. In this way the methods for setting the position of each leg can be reused and controlled directly from the walker class. When the robot is moving, the Walker class iterates through the walking patterns and sends the corresponding commands to each leg in order to make the robot carry out the desired movement.
+	The walker has four legs which have been implemented as seperate instances of the WalkerLeg class. In this way the methods for setting the position of each leg can be reused and controlled directly from the walker class. When the robot is moving, the Walker class iterates through the walking patterns and sends the corresponding commands to each leg in order to make the robot carry out the desired movement.
 	</p>
 
 	<p>
-	The final class is the WalkerSensor which is used for communicating with the IR sensors. Since the robot has 3 IR sensor, it has an 3 instances of the WalkerSensor class. The readSensor() method returns the average of the last 5 sensor readings whereas the readSensorRaw() will return the exact value.
+	The final class is the WalkerSensor which is used for communicating with the IR sensors. Since the robot has 3 IR sensor, it has 3 instances of the WalkerSensor class. The readSensor() method returns the average of the last 5 sensor readings whereas the readSensorRaw() will return the exact measured value.
 	</p>
 
 	<p>
-	The autonomous control is done in the Walker class by calling the followTheLight() method, which works in the same way as the implementation for the autonomous driving robot in task 1. It subtracts the right IR sensor reading from the left and convert this into a direction signal for the robot. In this way the robot will always try to move in the direction where there is the most space. In order to avoid collision the front sensor is used as a proportional gain making the robot slow down when it gets close to a wall.
+	The autonomous control is done in the Walker class by calling the followTheLight() method, which works in the same way as the implementation for the autonomous driving robot in task 1. It subtracts the right IR sensor reading from the left and converts it into a direction signal for the robot. In this way the robot will always try to move in the direction where there is the most space. In order to avoid collision the front sensor is used as a proportional gain for making the robot slow down when it gets close to a wall.
 	</p>
 
 	<div class="row">
@@ -66,12 +66,12 @@
 	</div>
 
 	<h2>Test and Performance</h2>
-	<p>To test have well the autonomous implementation was working, the completion time was compared to the remote controlled robot in task 2. A bar chart of the average run time with error margins (standard deviations) are shown in figure 3.</p>
+	<p>To test how well the autonomous implementation was working, the completion time was compared to the remote controlled robot in task 2. A bar chart of the average run time with error margins (standard deviations) are shown in figure 3.</p>
 	<div class="row">
 		<div class="col-sm-6"><img src="pics/walkerRobotTest.png" width='450px' style="margin-bottom:0;"/><b>Figure 2: </b>Average run time result using remote and autonomous control.</div>
 		<div class="col-sm-6"><img src="pics/walkerBarChart.png" width='450px' style="margin-bottom:0;"/><b>Figure 3: </b>Bar chart of average run time.</div>
 	</div>
-	<p>It is pretty clear from the chart that the running time using the remote control is shorter than using the actual autonomous solution. This is due to the fact that the robot does not look for the shortest path but rather tries to avoid collision with the walls and hence might choose a detour as long as it finishes in the end. To test how sensitive the robot was to the light conditions it was tested both with and without light on the track. The confidence interval. The confidence interval for the difference between the two light conditions turned out to be [-0.06555604  1.74155604] with a p-value of 0.06 for the null hypothesis that the running time of the two are equal. Hence we accept the null hypothesis that the average running time is the same under different light condition since no significant difference is shown with a significance level of 5 %. </p>
+	<p>It is pretty clear from the chart that the running time using the remote control is shorter than using the actual autonomous solution. This is due to the fact that the robot does not look for the shortest path but rather tries to avoid collision with the walls and hence might choose a detour as long as it finishes in the end. To test how sensitive the robot was to the light conditions it was tested both with and without light on the track. The confidence interval for the difference between the two light conditions turned out to be [-0.06555604  1.74155604] with a p-value of 0.06 for the null hypothesis that the running time of the two are equal. Hence we accept the null hypothesis that the average running time is the same under different light condition since no significant difference is shown with a significance level of 5 %. </p>
 
 	<h2>Race</h2>
 	<p>As seen in task 2 the robot was pretty fast when using the remote control and actually ended up winning the comptetion. However when it had to compete autonomous against the other robots it ran into problems. Since the sensors were placed on top of the robot it could easily detect the walls however if the competing robot was below the sensor, the robot did not sense the other and ended up getting tangled or flipped around. Due to this the robot lost the majority of its races. So even though we built a quite fast robot, it still need some improvements in order to be able to compete autonomously. </p>

@@ -55,6 +55,7 @@ html, body {
   color: #31363d;
   cursor: pointer; 
   -webkit-transition: color 1s;
+  -moz-transition: color 1s;
   transition: color 1s;
   text-decoration: none;
 }
@@ -88,6 +89,7 @@ text-align: center;
 
 .extra img {
 	-webkit-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
 	margin-top: 30px;
 	padding-bottom: 30px;
 }
